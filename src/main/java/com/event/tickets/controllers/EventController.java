@@ -4,7 +4,7 @@ import com.event.tickets.domain.CreateEventRequest;
 import com.event.tickets.domain.dtos.CreateEventRequestDto;
 import com.event.tickets.domain.dtos.CreateEventResponseDto;
 import com.event.tickets.domain.entities.Event;
-import com.event.tickets.domain.mapper.EventMapper;
+import com.event.tickets.mapper.EventMapper;
 import com.event.tickets.services.EventService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

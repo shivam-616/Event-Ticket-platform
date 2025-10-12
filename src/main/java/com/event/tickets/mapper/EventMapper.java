@@ -1,4 +1,4 @@
-package com.event.tickets.domain.mapper;
+package com.event.tickets.mapper;
 
 import com.event.tickets.domain.CreateEventRequest;
 import com.event.tickets.domain.CreateTicketTypeRequest;

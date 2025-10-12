@@ -1,18 +1,19 @@
-package com.event.tickets.domain;
+  package com.event.tickets.domain;
 
-import com.event.tickets.domain.entities.EventStatusEnum;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+  import java.time.LocalDateTime;
+  import java.util.ArrayList;
+  import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class CreateEventRequest {
+  import com.event.tickets.domain.entities.EventStatusEnum;
+  import lombok.AllArgsConstructor;
+  import lombok.Data;
+  import lombok.NoArgsConstructor;
+
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  public class CreateEventRequest {
 
     private String name;
     private LocalDateTime start;
@@ -22,4 +23,4 @@ public class CreateEventRequest {
     private LocalDateTime salesEnd;
     private EventStatusEnum status;
     private List<CreateTicketTypeRequest> ticketTypes = new ArrayList<>();
-}
+  }
