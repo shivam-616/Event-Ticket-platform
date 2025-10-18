@@ -5,7 +5,7 @@
   import java.util.ArrayList;
   import java.util.List;
 
-  import com.event.tickets.domain.entities.EventStatusEnum;
+  import com.event.tickets.domain.enums.EventStatusEnum;
   import lombok.AllArgsConstructor;
   import lombok.Data;
   import lombok.NoArgsConstructor;

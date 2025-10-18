@@ -1,5 +1,7 @@
 package com.event.tickets.domain.entities;
 
+import com.event.tickets.domain.enums.TicketValidationMethod;
+import com.event.tickets.domain.enums.TicketValidationStatusEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

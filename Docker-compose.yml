@@ -1,16 +1,17 @@
 services:
   db:
-    image: postgres:latest
+    image: mysql:8.0 # Use the official MySQL image
     ports:
-      -  "5432:5432"
+      - "3306:3306" # MySQL runs on port 3306
     restart: always
     environment:
-      POSTGRES_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password # Root password for the database
+      MYSQL_DATABASE: event_ticket_platform # Create a dedicated database
 
   adminer:
     image: adminer:latest
     ports:
-      -  "8888:8080"
+      - "8888:8080"
     restart: always
 
   keycloak:
@@ -27,4 +28,5 @@ services:
 volumes:
   keycloak_data:
     driver: local
-
+  mysql_data: # Optional: Add a volume to persist MySQL data
+    driver: local
