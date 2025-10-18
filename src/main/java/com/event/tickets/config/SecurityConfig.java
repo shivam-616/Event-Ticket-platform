@@ -32,7 +32,7 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/v1/published-events/**").permitAll()
-                                .requestMatchers("/api/v1/events").authenticated()
+                                .requestMatchers("/api/v1/events").hasRole("ORGANIZER")
                                 .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->
