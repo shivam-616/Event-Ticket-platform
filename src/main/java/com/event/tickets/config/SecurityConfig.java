@@ -23,8 +23,10 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/v1/published-events/**").permitAll()
-                                .requestMatchers("/api/v1/events").hasRole("ORGANIZER")
-                                .requestMatchers( "/api/v1/ticket-validations").hasRole("STAFF")
+                                .requestMatchers("/api/v1/events/**").hasRole("ORGANISER")
+//                                .requestMatchers("/api/v1/tickets").hasRole("ORGANISER")
+//                                .requestMatchers("/api/v1/events/ticket-types").hasRole("ORGANISER")
+                                .requestMatchers( "/api/v1/ticket-validations/**").hasRole("STAFF")
                                 .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->

@@ -6,6 +6,7 @@ import com.event.tickets.domain.entities.TicketValidation;
 import com.event.tickets.domain.enums.TicketValidationMethod;
 import com.event.tickets.mapper.TicketValidationMapper;
 import com.event.tickets.services.TicketValidationService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/v1/ticket-validations")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "Keycloak")
 public class TicketValidationController {
 
   private final TicketValidationService ticketValidationService;

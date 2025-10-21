@@ -1,6 +1,7 @@
 package com.event.tickets.controllers;
 
 import com.event.tickets.services.TicketTypeService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import static com.event.tickets.util.JwtUtil.parseUserId;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/api/v1/events/ticket-types")
+@SecurityRequirement(name = "Keycloak")
 public class TicketTypeController {
 
   private final TicketTypeService ticketTypeService;

@@ -6,6 +6,7 @@ import com.event.tickets.domain.dtos.ListTicketResponseDto;
 import com.event.tickets.mapper.TicketMapper;
 import com.event.tickets.services.QrCodeService;
 import com.event.tickets.services.TicketService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +29,7 @@ import static com.event.tickets.util.JwtUtil.parseUserId;
 @RestController
 @RequestMapping(path = "/api/v1/tickets")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "Keycloak")
 public class TicketController {
 
   private final TicketService ticketService;
@@ -37,7 +39,7 @@ public class TicketController {
   @GetMapping
   public Page<ListTicketResponseDto> listTickets(
       @AuthenticationPrincipal Jwt jwt,
-      @PageableDefault(size = 10, sort = "start", direction = Sort.Direction.DESC)
+      @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
       Pageable pageable
   ) {
     return ticketService.listTicketsForUser(
