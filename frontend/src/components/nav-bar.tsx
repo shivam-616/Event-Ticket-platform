@@ -49,7 +49,7 @@ const NavBar: React.FC = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="hover:bg-gray-800"
-                onClick={() => signoutRedirect()}
+                onClick={() => signoutRedirect({ post_logout_redirect_uri: window.location.origin + '/' })}
               >
                 <LogOut />
                 <span>Log Out</span>

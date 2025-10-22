@@ -106,7 +106,7 @@ const router = createBrowserRouter([
 
 const oidcConfig = {
   authority: "http://localhost:9090/realms/event-ticket-platform",
-  client_id: "event-ticket-platform-app",
+  client_id: "event-ticket-platform",
   redirect_uri: "http://localhost:5173/callback",
 };
 

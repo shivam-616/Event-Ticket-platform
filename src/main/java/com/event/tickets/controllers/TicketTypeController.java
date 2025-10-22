@@ -18,19 +18,20 @@ import static com.event.tickets.util.JwtUtil.parseUserId;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/v1/events/ticket-types")
+@RequestMapping(path = "/api/v1/events/{eventId}/ticket-types")
 @SecurityRequirement(name = "Keycloak")
 public class TicketTypeController {
 
-  private final TicketTypeService ticketTypeService;
+    private final TicketTypeService ticketTypeService;
 
-  @PostMapping(path = "/{ticketTypeId}/tickets")
-  public ResponseEntity<Void> purchaseTicket(
-      @AuthenticationPrincipal Jwt jwt,
-      @PathVariable UUID ticketTypeId
-  ) {
-    ticketTypeService.purchaseTicket(parseUserId(jwt), ticketTypeId);
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-  }
+    @PostMapping(path = "/{ticketTypeId}/tickets")
+    public ResponseEntity<Void> purchaseTicket(
+            @PathVariable UUID eventId, // Add this parameter
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable UUID ticketTypeId
+    ) {
+        ticketTypeService.purchaseTicket(parseUserId(jwt), ticketTypeId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

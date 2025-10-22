@@ -16,7 +16,11 @@ const CallbackPage: React.FC = () => {
       if (redirectPath) {
         localStorage.removeItem("redirectPath");
         navigate(redirectPath);
+      }else {
+          // ADD THIS ELSE BLOCK: Navigate to a default page (e.g., dashboard) if no path saved
+          navigate("/dashboard");
       }
+
     }
   }, [isLoading, isAuthenticated, navigate]);
 

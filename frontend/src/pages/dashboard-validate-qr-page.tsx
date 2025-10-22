@@ -37,13 +37,13 @@ const DashboardValidateQrPage: React.FC = () => {
     }
   };
 
-  const handleValidate = async (id: string, method: TicketValidationMethod) => {
+  const handleValidate = async (ticketIdValue: string, method: TicketValidationMethod) => {
     if (!user?.access_token) {
       return;
     }
     try {
       const response = await validateTicket(user.access_token, {
-        id,
+        ticketId: ticketIdValue,
         method,
       });
       setValidationStatus(response.status);
