@@ -68,8 +68,7 @@ This platform allows event organizers to set up events and define ticket types. 
 
 1.  **Clone the Repository:**
     ```bash
-    git clone <your-repo-url>
-    cd <your-repo-directory>
+    git clone https://github.com/shivam-616/Event-Ticket-platform.git
     ```
 
 2.  **Start Infrastructure (Database & Keycloak):**
@@ -124,3 +123,4 @@ You can authorize using the Keycloak OIDC flow directly from Swagger UI to test 
 ## License
 
 This project includes code under the MIT License (see `frontend/LICENSE` file for details). Backend code license may vary based on dependencies.
+
