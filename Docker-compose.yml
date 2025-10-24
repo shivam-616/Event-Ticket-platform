@@ -1,32 +1,96 @@
+version: '3.8' # Specify a version
+
+# Define named volumes for persistent data
+volumes:
+  mysql_data:
+    driver: local
+  keycloak_data: # Added volume for Keycloak persistence
+    driver: local
+
 services:
+  # --- Database Service ---
   db:
-    image: mysql:8.0 # Use the official MySQL image
+    image: mysql:8.0
     ports:
-      - "3306:3306" # MySQL runs on port 3306
+      - "3306:3306" # Expose MySQL port to host
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: password # Root password for the database
-      MYSQL_DATABASE: event_ticket_platform # Create a dedicated database
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: event_ticket_platform
+    volumes:
+      - mysql_data:/var/lib/mysql # Persist database data
 
-  adminer:
-    image: adminer:latest
-    ports:
-      - "8888:8080"
-    restart: always
-
+  # --- Keycloak Service ---
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+      # Optional: Configure DB connection if needed, otherwise uses embedded DB
+      # KC_DB: mysql
+      # KC_DB_URL_HOST: db # Service name of the database container
+      # KC_DB_URL_DATABASE: keycloak # Or your chosen DB name for Keycloak
+      # KC_DB_USERNAME: keycloak_user # Create a dedicated user
+      # KC_DB_PASSWORD: keycloak_password
     ports:
-      - "9090:8080"
+      - "9090:8080" # Expose Keycloak port to host
+    volumes:
+      - keycloak_data:/opt/keycloak/data # Persist Keycloak data/config
     command:
       - start-dev
-      - --db=dev-file
+      # Remove --db=dev-file if configuring external DB
+      # - --db=dev-file
+    depends_on:
+      - db # Wait for DB to be ready if Keycloak uses it
 
-volumes:
-  keycloak_data:
-    driver: local
-  mysql_data: # Optional: Add a volume to persist MySQL data
-    driver: local
+  # --- Backend Service ---
+  backend:
+    build:
+      context: . # Build from the root directory
+      dockerfile: Dockerfile # Specify the backend Dockerfile.frontend
+    ports:
+      - "8080:8080" # Expose backend port to host
+    restart: on-failure
+    environment:
+      # Use service name 'db' for hostname within Docker network
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/event_ticket_platform?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: password
+      # Use service name 'keycloak' for hostname within Docker network
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/event-ticket-platform
+      # Add any other required environment variables for the backend
+      # SPRING_PROFILES_ACTIVE: prod # Example
+    depends_on:
+      - db       # Wait for the database
+      - keycloak # Wait for Keycloak (especially if backend calls it on startup)
+
+  # --- Frontend Service ---
+  frontend:
+    build:
+      context: ./frontend # Build from the frontend directory
+      dockerfile: Dockerfile.frontend # Specify the frontend Dockerfile.frontend
+      # If your frontend needs build args (less flexible than runtime vars):
+      # args:
+      #   VITE_API_BASE_URL: http://localhost:8080 # Points to backend exposed on HOST
+      #   VITE_KEYCLOAK_URL: http://localhost:9090 # Points to keycloak exposed on HOST
+    ports:
+      - "5173:80" # Map host port 5173 to Nginx container port 80
+    restart: on-failure
+    # Add environment variables IF your frontend/nginx setup reads them at runtime
+    # Environment variables set here are primarily for the container itself,
+    # Nginx needs specific setup (like using envsubst) to pass them to static files.
+    # It's often easier to bake URLs into the build or use runtime config fetched by JS.
+    # environment:
+    #   VITE_API_BASE_URL: http://localhost:8080 # URL accessible from the USER'S BROWSER
+    #   VITE_KEYCLOAK_URL: http://localhost:9090 # URL accessible from the USER'S BROWSER
+    depends_on:
+      - backend # Wait for the backend (optional, but good practice)
+
+  # --- Adminer (Optional DB GUI) ---
+  adminer:
+    image: adminer:latest
+    ports:
+      - "8888:8080"
+    restart: always
+    depends_on:
+      - db
