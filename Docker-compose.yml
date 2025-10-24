@@ -47,7 +47,7 @@ services:
   backend:
     build:
       context: . # Build from the root directory
-      dockerfile: Dockerfile # Specify the backend Dockerfile.frontend
+      dockerfile: Dockerfile.backend # Specify the backend Dockerfile.backend.frontend
     ports:
       - "8080:8080" # Expose backend port to host
     restart: on-failure
@@ -68,7 +68,7 @@ services:
   frontend:
     build:
       context: ./frontend # Build from the frontend directory
-      dockerfile: Dockerfile.frontend # Specify the frontend Dockerfile.frontend
+      dockerfile: Dockerfile.frontend # Specify the frontend Dockerfile.backend.frontend
       # If your frontend needs build args (less flexible than runtime vars):
       # args:
       #   VITE_API_BASE_URL: http://localhost:8080 # Points to backend exposed on HOST
