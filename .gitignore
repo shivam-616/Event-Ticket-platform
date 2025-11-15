@@ -32,4 +32,5 @@ build/
 ### VS Code ###
 .vscode/git reflog
 
-C:\java environmnet\java_program\Event_mangment\src\main\resources\application.properties
+# Configuration files that should not be committed
+src/main/resources/application.properties
