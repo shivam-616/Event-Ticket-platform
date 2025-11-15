@@ -30,4 +30,6 @@ build/
 !**/src/test/**/build/
 
 ### VS Code ###
-.vscode/
+.vscode/git reflog
+
+C:\java environmnet\java_program\Event_mangment\src\main\resources\application.properties
